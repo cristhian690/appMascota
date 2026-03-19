@@ -22,26 +22,26 @@ import org.json.JSONObject;
 
 public class Actualizar extends AppCompatActivity {
 
-    private int idMascota;
-    private EditText edtTipo, edtNombre, edtColor, edtPeso;
-    private Button btnActualizar; // Nombre del botón según tu XML
-    private RequestQueue requestQueue;
-    private final String URL = "http://192.168.101.59:3000/mascotas/";
+     int idMascota;
+     EditText edtTipo, edtNombre, edtColor, edtPeso;
+     Button btnActualizar;
+     RequestQueue requestQueue;
+    final String URL = "http://192.168.101.59:3000/mascotas/";
 
     private void loadUI() {
-        // Vinculamos usando los IDs exactos de tu nuevo XML
+
         edtTipo = findViewById(R.id.edtTipo);
         edtNombre = findViewById(R.id.edtNombre);
         edtColor = findViewById(R.id.edtColor);
         edtPeso = findViewById(R.id.edtPeso);
-        btnActualizar = findViewById(R.id.btnActualizar); // Cambiado a btnActualizar
+        btnActualizar = findViewById(R.id.btnActualizar);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_actualizar); // Tu nuevo archivo XML
+        setContentView(R.layout.activity_actualizar);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -51,7 +51,7 @@ public class Actualizar extends AppCompatActivity {
 
         loadUI();
 
-        // Recibimos los datos que vienen desde ListarCustom
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             idMascota = extras.getInt("id");
@@ -77,14 +77,14 @@ public class Actualizar extends AppCompatActivity {
             Log.e("ErrorDatos", e.toString());
         }
 
-        // Petición PUT para actualizar en Node.js
+
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.PUT,
                 URL + idMascota,
                 jsonObject,
                 response -> {
                     Toast.makeText(this, "Mascota actualizada", Toast.LENGTH_SHORT).show();
-                    finish(); // Regresa a la lista automáticamente
+                    finish();
                 },
                 error -> {
                     Log.e("ErrorWS", error.toString());
